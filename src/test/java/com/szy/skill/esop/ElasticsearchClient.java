@@ -57,7 +57,7 @@ public class ElasticsearchClient {
 
 
     @After
-    public void tearDown() {
+    public void tearDown() throws Exception{
         Optional.ofNullable(client).ifPresent(client -> {
             client.close();
         });
