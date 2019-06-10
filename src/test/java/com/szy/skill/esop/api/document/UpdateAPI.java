@@ -18,6 +18,8 @@ import org.elasticsearch.common.xcontent.XContentFactory;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -34,10 +36,15 @@ public class UpdateAPI extends ElasticsearchClient {
     @Test
     public void test4UpdateRequest() throws IOException, InterruptedException, ExecutionException {
         UpdateRequest updateRequest = new UpdateRequest();
-        updateRequest.index(MY_DEFAULT_INDEX).type(MY_DEFAULT_TYPE).id("2")
+        List<String> tags = new ArrayList<>();
+        tags.add("足球");
+        tags.add("羽毛球");
+        updateRequest.index(MY_DEFAULT_INDEX).type(MY_DEFAULT_TYPE).id("1")
                 .doc(XContentFactory.jsonBuilder()
                         .startObject()
-                        .field("user", "zzr")
+                        //.field("remark", "Elasticsearch")
+                        //.field("tags",tags)
+                        .field("age",30)
                         .endObject()
                 );
         log.info(updateRequest.toString());

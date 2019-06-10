@@ -88,7 +88,7 @@ public class IndexAPI extends ElasticsearchClient {
                 .field("postDate", new Date())
                 .field("age", 10)
                 .field("gender", "male")
-                .field("message", "trying out Elasticsearch")
+                .field("message", "trying out Elasticsearch 123")
                 .endObject();
         IndexResponse response = client.prepareIndex("twitter", "tweet", "3")
                 .setSource(builder)

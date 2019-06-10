@@ -11,17 +11,23 @@
 package com.szy.skill.esop;
 
 import com.szy.skill.esop.util.PrintUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.TransportAddress;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.junit.After;
 import org.junit.Before;
-import org.springframework.util.StringUtils;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Optional;
 
 /**
@@ -32,12 +38,13 @@ import java.util.Optional;
  * @create 2019/6/3
  * @since 1.0.0
  */
+@Slf4j
 public class ElasticsearchClient {
 
     private static final String MY_CLUSTER_NAME = "my-application";
     protected static final String MY_DEFAULT_INDEX = "twitter";
     protected static final String MY_DEFAULT_TYPE = "tweet";
-    protected static final String MY_IP = "";
+    protected static final String MY_IP = "39.108.179.100";
     protected static final int MY_PORT = 9300;
 
 
@@ -61,7 +68,7 @@ public class ElasticsearchClient {
 
         client = new PreBuiltTransportClient(esSettings)
                 //:   39.108.179.100:9300
-                .addTransportAddress(new TransportAddress(InetAddress.getByName(RP_IP), MY_PORT));
+                .addTransportAddress(new TransportAddress(InetAddress.getByName(MY_IP), MY_PORT));
         System.out.println("ElasticsearchClient 连接成功");
     }
 
@@ -75,5 +82,15 @@ public class ElasticsearchClient {
 
     protected void println(SearchResponse searchResponse) {
         PrintUtils.println(searchResponse);
+    }
+
+    protected void searchQueryActuator(QueryBuilder... queryBuilder) {
+        Arrays.stream(queryBuilder).forEach(qb->log.info(qb.toString()));
+        SearchRequestBuilder searchRequestBuilder = client.prepareSearch().setIndices(MY_DEFAULT_INDEX).setTypes(MY_DEFAULT_TYPE);
+        Arrays.stream(queryBuilder).forEach(qb->searchRequestBuilder.setQuery(qb));
+        log.info(searchRequestBuilder.toString());
+        SearchResponse response = searchRequestBuilder.execute().actionGet();
+        SearchHit[] hits = response.getHits().getHits();
+        Arrays.stream(hits).forEach(hit -> log.info(hit.toString()));
     }
 }
