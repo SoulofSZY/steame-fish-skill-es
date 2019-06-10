@@ -34,10 +34,19 @@ import java.util.Optional;
  */
 public class ElasticsearchClient {
 
-    private static final String CLUSTER_NAME = "my-application";
+    private static final String MY_CLUSTER_NAME = "my-application";
+    protected static final String MY_DEFAULT_INDEX = "twitter";
+    protected static final String MY_DEFAULT_TYPE = "tweet";
+    protected static final String MY_IP = "";
+    protected static final int MY_PORT = 9300;
 
-    protected static final String DEFAULT_INDEX = "twitter";
-    protected static final String DEFAULT_TYPE = "tweet";
+
+    private static final String RP_CLUSTER_NAME = "mkcloud";
+    protected static final String RP_DEFAULT_INDEX = "twitter";
+    protected static final String RP_DEFAULT_TYPE = "tweet";
+    private static final String RP_IP = "120.24.253.183";
+    private static final int RP_PORT = 19300;
+
 
     protected TransportClient client;
 
@@ -45,19 +54,20 @@ public class ElasticsearchClient {
     public void setUp() throws UnknownHostException {
         Settings esSettings = Settings.builder()
                 // 设置集群名
-                .put("cluster.name", CLUSTER_NAME)
+                .put("cluster.name", MY_CLUSTER_NAME)
                 //自动嗅探整个集群的状态，把集群中其他ES节点的ip添加到本地的客户端列表中
                 .put("client.transport.sniff", false)
                 .build();
 
         client = new PreBuiltTransportClient(esSettings)
-                .addTransportAddress(new TransportAddress(InetAddress.getByName("39.108.179.100"), 9300));
+                //:   39.108.179.100:9300
+                .addTransportAddress(new TransportAddress(InetAddress.getByName(RP_IP), MY_PORT));
         System.out.println("ElasticsearchClient 连接成功");
     }
 
 
     @After
-    public void tearDown() throws Exception{
+    public void tearDown() throws Exception {
         Optional.ofNullable(client).ifPresent(client -> {
             client.close();
         });

@@ -36,7 +36,7 @@ public class DeleteByQueryAPI extends ElasticsearchClient {
                 // 全文检索
                 .filter(QueryBuilders.matchQuery("message", "Elasticsearch"))
                 // 指定 index
-                .source(DEFAULT_INDEX)
+                .source(MY_DEFAULT_INDEX)
                 .get();
         long deleted = response.getDeleted();
         System.out.print(JSONObject.toJSONString(response));
@@ -46,7 +46,7 @@ public class DeleteByQueryAPI extends ElasticsearchClient {
     public void test4DeleteByQueryAysnc() throws InterruptedException{
         new DeleteByQueryRequestBuilder(client, DeleteByQueryAction.INSTANCE)
                 .filter(QueryBuilders.matchQuery("message", "Elasticsearch"))
-                .source(DEFAULT_INDEX)
+                .source(MY_DEFAULT_INDEX)
                 .execute(new ActionListener<BulkByScrollResponse>() {
                     @Override
                     public void onResponse(BulkByScrollResponse response) {

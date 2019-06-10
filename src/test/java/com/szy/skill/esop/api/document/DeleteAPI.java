@@ -27,7 +27,7 @@ public class DeleteAPI extends ElasticsearchClient {
 
     @Test
     public void test4DeleteAPI() {
-        DeleteResponse response = client.prepareDelete(DEFAULT_INDEX, DEFAULT_TYPE, "1").get("60s");
+        DeleteResponse response = client.prepareDelete(MY_DEFAULT_INDEX, MY_DEFAULT_TYPE, "1").get("60s");
         System.out.print("删除成功:" + JSONObject.toJSONString(response));
     }
 }

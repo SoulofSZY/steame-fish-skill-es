@@ -32,9 +32,9 @@ public class MultiGetAPI extends ElasticsearchClient {
     @Test
     public void test4MultiGet() {
         MultiGetResponse multiGetItemResponses = client.prepareMultiGet()
-                .add(DEFAULT_INDEX, DEFAULT_TYPE, "1", "2")
-                .add(DEFAULT_INDEX, DEFAULT_TYPE, "2")
-                .add(DEFAULT_INDEX, DEFAULT_TYPE, "3", "4")
+                .add("rabbit_audience_index_*", "audience_user", "ZTraKmsB4zUNYKS1zVwc")
+               // .add(MY_DEFAULT_INDEX, MY_DEFAULT_TYPE, "2")
+               // .add(MY_DEFAULT_INDEX, MY_DEFAULT_TYPE, "3", "4")
                 .get();
 
         for (MultiGetItemResponse itemResponse : multiGetItemResponses) {

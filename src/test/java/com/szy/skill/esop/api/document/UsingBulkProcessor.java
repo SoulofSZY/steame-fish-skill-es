@@ -72,8 +72,8 @@ public class UsingBulkProcessor extends ElasticsearchClient {
     }
 
     private void addBulkItems() {
-        bulkProcessor.add(new DeleteRequest(DEFAULT_INDEX, DEFAULT_TYPE, "3"))
-                .add(new DeleteRequest(DEFAULT_INDEX, DEFAULT_TYPE, "4"));
+        bulkProcessor.add(new DeleteRequest(MY_DEFAULT_INDEX, MY_DEFAULT_TYPE, "3"))
+                .add(new DeleteRequest(MY_DEFAULT_INDEX, MY_DEFAULT_TYPE, "4"));
     }
 
     @Override

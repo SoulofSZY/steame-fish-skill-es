@@ -10,8 +10,6 @@
  */
 package com.szy.skill.esop.api.document;
 
-import com.alibaba.fastjson.JSONObject;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import com.szy.skill.esop.ElasticsearchClient;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.index.IndexRequest;
@@ -36,7 +34,7 @@ public class UpdateAPI extends ElasticsearchClient {
     @Test
     public void test4UpdateRequest() throws IOException, InterruptedException, ExecutionException {
         UpdateRequest updateRequest = new UpdateRequest();
-        updateRequest.index(DEFAULT_INDEX).type(DEFAULT_TYPE).id("2")
+        updateRequest.index(MY_DEFAULT_INDEX).type(MY_DEFAULT_TYPE).id("2")
                 .doc(XContentFactory.jsonBuilder()
                         .startObject()
                         .field("user", "zzr")
@@ -53,7 +51,7 @@ public class UpdateAPI extends ElasticsearchClient {
      */
     @Test
     public void test4PrepareUpdate() throws IOException {
-        client.prepareUpdate(DEFAULT_INDEX, DEFAULT_TYPE, "2")
+        client.prepareUpdate(MY_DEFAULT_INDEX, MY_DEFAULT_TYPE, "2")
                 .setDoc(XContentFactory.jsonBuilder()
                         .startObject()
                         .field("remark", "szy")
@@ -70,13 +68,13 @@ public class UpdateAPI extends ElasticsearchClient {
      */
     @Test
     public void test4Upsert() throws IOException, InterruptedException, ExecutionException {
-        IndexRequest indexRequest = new IndexRequest(DEFAULT_INDEX, DEFAULT_TYPE, "1")
+        IndexRequest indexRequest = new IndexRequest(MY_DEFAULT_INDEX, MY_DEFAULT_TYPE, "1")
                 .source(XContentFactory.jsonBuilder()
                         .startObject()
                         .field("name", "Joe Smith")
                         .field("gender", "male")
                         .endObject());
-        UpdateRequest updateRequest = new UpdateRequest(DEFAULT_INDEX, DEFAULT_TYPE, "1")
+        UpdateRequest updateRequest = new UpdateRequest(MY_DEFAULT_INDEX, MY_DEFAULT_TYPE, "1")
                 .doc(XContentFactory.jsonBuilder()
                         .startObject()
                         .field("gender", "female")

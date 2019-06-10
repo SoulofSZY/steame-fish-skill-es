@@ -10,13 +10,11 @@
  */
 package com.szy.skill.esop.api.document;
 
-import com.sun.xml.internal.ws.spi.db.DatabindingException;
 import com.szy.skill.esop.ElasticsearchClient;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.junit.Test;
-import org.omg.DynamicAny._DynAnyFactoryStub;
 
 import java.io.IOException;
 import java.util.Date;
@@ -39,7 +37,7 @@ public class BulkAPI extends ElasticsearchClient {
     public void test4BulkAPI() throws IOException {
         BulkRequestBuilder bulkRequest = client.prepareBulk();
 
-        bulkRequest.add(client.prepareIndex(DEFAULT_INDEX, DEFAULT_TYPE, "3").setSource(
+        bulkRequest.add(client.prepareIndex(MY_DEFAULT_INDEX, MY_DEFAULT_TYPE, "3").setSource(
                 jsonBuilder().startObject()
                         .field("user", "shd")
                         .field("postDate", new Date())
@@ -47,7 +45,7 @@ public class BulkAPI extends ElasticsearchClient {
                         .endObject()
         ));
 
-        bulkRequest.add(client.prepareIndex(DEFAULT_INDEX, DEFAULT_TYPE, "4").setSource(
+        bulkRequest.add(client.prepareIndex(MY_DEFAULT_INDEX, MY_DEFAULT_TYPE, "4").setSource(
                 jsonBuilder().startObject()
                         .field("user", "ljl")
                         .field("postDate", new Date())
