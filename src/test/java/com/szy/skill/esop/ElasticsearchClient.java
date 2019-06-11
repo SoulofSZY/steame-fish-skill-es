@@ -48,11 +48,11 @@ public class ElasticsearchClient {
     protected static final int MY_PORT = 9300;
 
 
-    private static final String RP_CLUSTER_NAME = "mkcloud";
-    protected static final String RP_DEFAULT_INDEX = "twitter";
-    protected static final String RP_DEFAULT_TYPE = "tweet";
-    private static final String RP_IP = "120.24.253.183";
-    private static final int RP_PORT = 19300;
+    private static final String RP_CLUSTER_NAME = "***";
+    protected static final String RP_DEFAULT_INDEX = "**";
+    protected static final String RP_DEFAULT_TYPE = "**";
+    private static final String RP_IP = "*****";
+    private static final int RP_PORT = 9300;
 
 
     protected TransportClient client;
