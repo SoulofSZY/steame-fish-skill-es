@@ -19,7 +19,9 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -39,12 +41,15 @@ public class UpdateAPI extends ElasticsearchClient {
         List<String> tags = new ArrayList<>();
         tags.add("足球");
         tags.add("羽毛球");
-        updateRequest.index(MY_DEFAULT_INDEX).type(MY_DEFAULT_TYPE).id("1")
+        Map<String,Object> obj1 = new LinkedHashMap<>();
+        obj1.put("job","coder");
+        obj1.put("salary",10000f);
+        updateRequest.index(MY_DEFAULT_INDEX).type(MY_DEFAULT_TYPE).id("2")
                 .doc(XContentFactory.jsonBuilder()
                         .startObject()
                         //.field("remark", "Elasticsearch")
                         //.field("tags",tags)
-                        .field("age",30)
+                        .field("obj1", obj1)
                         .endObject()
                 );
         log.info(updateRequest.toString());

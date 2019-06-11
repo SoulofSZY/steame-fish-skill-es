@@ -43,7 +43,7 @@ public class ElasticsearchClient {
 
     private static final String MY_CLUSTER_NAME = "my-application";
     protected static final String MY_DEFAULT_INDEX = "twitter";
-    protected static final String MY_DEFAULT_TYPE = "tweet";
+    protected static final String MY_DEFAULT_TYPE = "_doc";
     protected static final String MY_IP = "39.108.179.100";
     protected static final int MY_PORT = 9300;
 

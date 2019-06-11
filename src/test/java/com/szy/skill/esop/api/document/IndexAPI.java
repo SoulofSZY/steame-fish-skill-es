@@ -10,11 +10,9 @@
  */
 package com.szy.skill.esop.api.document;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.szy.skill.esop.ElasticsearchClient;
 import org.elasticsearch.action.index.IndexResponse;
-import org.elasticsearch.client.Response;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.common.xcontent.XContentType;
@@ -22,6 +20,7 @@ import org.junit.Test;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -66,7 +65,7 @@ public class IndexAPI extends ElasticsearchClient {
         json.put("postDate", "2017-10-10");
         json.put("message", "trying out Elasticsearch");
 
-        IndexResponse response = client.prepareIndex("twitter", "tweet", String.valueOf(2))
+        IndexResponse response = client.prepareIndex("twitter", "_doc", String.valueOf(2))
                 .setSource(json)
                 .get();
 
@@ -82,16 +81,29 @@ public class IndexAPI extends ElasticsearchClient {
      */
     @Test
     public void testForUseXContentBuilder() throws Exception {
+        Map<String, Object> obj1 = new LinkedHashMap<>();
+        obj1.put("job", "coder");
+        obj1.put("salary", 10000);
+
+        Map<String, Object> child = new LinkedHashMap<>();
+        child.put("name", "my_child");
+        child.put("parent", "1");
+//        MyJoinBean child = new MyJoinBean();
+//        child.setName("my_child");
+//        child.setParent("1");
+
         XContentBuilder builder = XContentFactory.jsonBuilder()
                 .startObject()
-                .field("user", "shd")
+                .field("user", "cba")
                 .field("postDate", new Date())
-                .field("age", 10)
+                .field("age", 15)
                 .field("gender", "male")
-                .field("message", "trying out Elasticsearch 123")
+                .field("message", "world")
+                .field("obj1", obj1)
+                .field("my_join_field", child)
                 .endObject();
-        IndexResponse response = client.prepareIndex("twitter", "tweet", "3")
-                .setSource(builder)
+        IndexResponse response = client.prepareIndex(MY_DEFAULT_INDEX, MY_DEFAULT_TYPE, "2")
+                .setSource(builder).setRouting("1")
                 .get();
 
         System.out.println(JSONObject.toJSONString(response));

@@ -10,13 +10,10 @@
  */
 package com.szy.skill.esop.api.query;
 
-import com.sun.org.apache.bcel.internal.generic.FADD;
 import com.szy.skill.esop.ElasticsearchClient;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.index.query.*;
 import org.junit.Test;
-
-import java.util.Arrays;
 
 /**
  * 〈一句话功能简述〉<br>
