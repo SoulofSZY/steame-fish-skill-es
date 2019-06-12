@@ -94,15 +94,15 @@ public class IndexAPI extends ElasticsearchClient {
 
         XContentBuilder builder = XContentFactory.jsonBuilder()
                 .startObject()
-                .field("user", "COO")
+                .field("user", "OFO")
                 .field("postDate", new Date())
-                .field("age", 10)
-                .field("gender", "male")
+                .field("age", 20)
+                .field("gender", "female")
                 .field("message", "hello")
                 .field("obj1", obj1)
                 .field("my_join_field", "my_parent")
                 .endObject();
-        IndexResponse response = client.prepareIndex(MY_DEFAULT_INDEX, MY_DEFAULT_TYPE, "3")
+        IndexResponse response = client.prepareIndex(MY_DEFAULT_INDEX, MY_DEFAULT_TYPE, "5")
                 .setSource(builder)
                 //.setRouting("1")
                 .get();
