@@ -12,15 +12,9 @@ package com.szy.skill.esop.api.query;
 
 import com.szy.skill.esop.ElasticsearchClient;
 import lombok.extern.slf4j.Slf4j;
-import org.elasticsearch.action.search.SearchRequestBuilder;
-import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.SearchHits;
 import org.junit.Test;
-
-import java.util.Arrays;
 
 /**
  * 〈一句话功能简述〉<br>

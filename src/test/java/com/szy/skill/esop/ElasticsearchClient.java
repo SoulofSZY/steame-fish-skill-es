@@ -19,6 +19,7 @@ import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.TransportAddress;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.junit.After;
 import org.junit.Before;
@@ -92,5 +93,12 @@ public class ElasticsearchClient {
         SearchResponse response = searchRequestBuilder.execute().actionGet();
         SearchHit[] hits = response.getHits().getHits();
         Arrays.stream(hits).forEach(hit -> log.info(hit.toString()));
+    }
+
+    protected void searchQueryActuator(AggregationBuilder aggregationBuilder){
+        SearchRequestBuilder searchRequestBuilder = client.prepareSearch().setIndices(MY_DEFAULT_INDEX).setTypes(MY_DEFAULT_TYPE);
+        searchRequestBuilder.addAggregation(aggregationBuilder);
+        log.info(searchRequestBuilder.toString());
+        SearchResponse response = searchRequestBuilder.execute().actionGet();
     }
 }

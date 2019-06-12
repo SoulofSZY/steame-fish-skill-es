@@ -83,7 +83,7 @@ public class IndexAPI extends ElasticsearchClient {
     public void testForUseXContentBuilder() throws Exception {
         Map<String, Object> obj1 = new LinkedHashMap<>();
         obj1.put("job", "coder");
-        obj1.put("salary", 10000);
+        obj1.put("salary", 20000);
 
         Map<String, Object> child = new LinkedHashMap<>();
         child.put("name", "my_child");
@@ -94,16 +94,17 @@ public class IndexAPI extends ElasticsearchClient {
 
         XContentBuilder builder = XContentFactory.jsonBuilder()
                 .startObject()
-                .field("user", "cba")
+                .field("user", "COO")
                 .field("postDate", new Date())
-                .field("age", 15)
+                .field("age", 10)
                 .field("gender", "male")
-                .field("message", "world")
+                .field("message", "hello")
                 .field("obj1", obj1)
-                .field("my_join_field", child)
+                .field("my_join_field", "my_parent")
                 .endObject();
-        IndexResponse response = client.prepareIndex(MY_DEFAULT_INDEX, MY_DEFAULT_TYPE, "2")
-                .setSource(builder).setRouting("1")
+        IndexResponse response = client.prepareIndex(MY_DEFAULT_INDEX, MY_DEFAULT_TYPE, "3")
+                .setSource(builder)
+                //.setRouting("1")
                 .get();
 
         System.out.println(JSONObject.toJSONString(response));
